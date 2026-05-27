@@ -155,3 +155,12 @@ services:
     image: ollama/ollama:rocm
     depends_on:
      - ollama-gpu-amd
+
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/base:ubuntu
+    container_name: devcontainer
+    volumes:
+      - .:/workspaces/bpi-n8n-esnsaas:cached
+    networks:
+      - demo
+    command: /bin/sh -c "while sleep 1000; do :; done"
