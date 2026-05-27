@@ -27,7 +27,7 @@ x-n8n: &service-n8n
       required: true
 
 x-ollama: &service-ollama
-  image: ollama/ollama:latest
+  image: alpine/ollama:latest
   networks: ['demo']
   restart: unless-stopped
   ports:
@@ -36,7 +36,7 @@ x-ollama: &service-ollama
     - ollama_storage:/root/.ollama
 
 x-init-ollama: &init-ollama
-  image: ollama/ollama:latest
+  image: alpine/ollama:latest
   networks: ['demo']
   volumes:
     - ollama_storage:/root/.ollama
