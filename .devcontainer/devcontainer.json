@@ -2,7 +2,7 @@
     "name": "Environnement TP n8n",
     "dockerComposeFile": "../docker-compose.yml",
     "service": "n8n",
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/workspaces/bpi-n8n-esnsaas",
     "forwardPorts": [
         5678,
         11434,
