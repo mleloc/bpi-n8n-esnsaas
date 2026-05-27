@@ -98,6 +98,7 @@ services:
       - n8n_storage:/home/node/.n8n
       - ./n8n/demo-data:/demo-data
       - ./shared:/data/shared
+      - .:/workspace:cached
     depends_on:
       postgres:
         condition: service_healthy
