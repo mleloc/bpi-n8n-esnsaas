@@ -1,0 +1,26 @@
+﻿Nom,Compétences,Séniorité,Disponibilité,TJM cible,Langues,Commentaires internes
+Alexandre,"DevOps,Docker,CI/CD,GitLab",Junior,0%,€480,FR,"Junior prometteur, déjà staffé en binôme chez Carrefour."
+Amine,"Python,React,Node.js,SQL",Confirmé,100%,€600,"FR,EN",En cours de démission discrète.
+Antoine,".NET,C#,Azure",Senior,0%,€700,"FR,EN",En congé sabbatique pour création d'entreprise.
+Camille,"Vue.js,JavaScript,Tailwind",Junior,0%,€420,FR,Bloqué sur un projet interne stratégique (R&D).
+Chloé,"React,TypeScript,Node.js",Senior,80%,€700,"FR,EN",Ne travaille jamais le mercredi (temps partiel).
+Clara,"Mobile Android,Kotlin,Flutter",Confirmé,0%,€600,FR,Staffé à 100% sur un projet international (Full remote).
+David,"Go,Microservices,GCP",Senior,0%,€800,"FR,EN","Indisponible, prêté à la filiale américaine du groupe."
+Élodie,"Angular,TypeScript,Node.js",Confirmé,0%,€580,FR,En congé maternité (Retour prévu mi-2027).
+Guillaume,"Product Owner,Product Management",Senior,0%,€650,"FR,EN",Staffé sur le projet de transformation Cloud de la SG.
+Inès,"Cybersécurité,Pentest,ISO 27001",Senior,0%,€900,"FR,EN","Expertise critique, bloqué sur l'audit de sécurité de l'État."
+Jean-Sébastien,"Java,Spring Boot,AWS",Senior,100%,€850,FR,Refuse le legacy. Sort de 2 ans de mission chez Hermès (concurrent LVMH).
+Julie,"QA Automation,Cypress,Selenium",Confirmé,0%,€550,FR,"Staffé sur la TMA interne, non sortable du projet."
+Julien,"Data Engineer,Talend,Snowflake",Senior,0%,€800,"FR,EN",Bloqué sur le chantier de migration Data chez Orange.
+Kevin,"HTML,CSS",Junior,100%,€450,FR,Forte motivation mais nécessite un encadrement senior systématique.
+Laura,"Salesforce Consultant,APEX",Senior,0%,€750,"FR,EN","Placé au forfait sur l'intégration CRM de Veolia."""
+Léa,"UX/UI Design,Figma,Adobe XD",Senior,0%,€650,FR,Détaché à 100% chez un client Grand Compte à l'année.
+Lucas,"Ruby on Rails,PostgreSQL",Confirmé,0%,€580,"FR,EN",Staffé sur un projet de refonte e-commerce (L'Oréal).
+Marine,"Java,Spring Boot,Angular",Confirmé,0%,€600,FR,"Placé chez TotalEnergies, reconduction en cours."
+Maxime,"Scrum Master,Agile,Jira",Confirmé,0%,€600,"FR,EN",Exclusivité signée avec un client historique du secteur Public.
+Nicolas,"PHP,Symfony,MySQL",Senior,0%,€650,FR,"Placé au forfait EDF, bloqué pour les 6 prochains mois."
+Pauline,"Business Analyst,SQL,PowerBI",Confirmé,0%,€550,FR,Placé en assistance technique longue durée chez Bouygues.
+Romain,"Mobile iOS,Swift,Objective-C",Senior,0%,€700,"FR,EN",Placé sur l'application mobile de la SNCF.
+Sarah,"COBOL,Java",Senior,100%,€900,"FR,EN",Plus de 20 ans d'expérience. Profil très rare.
+Sofia,"Data Scientist,Python,Spark,ROI",Senior,0%,€850,"FR,EN",Mission longue chez BNP Paribas (Renouvelé jusqu'en 2027).
+Thomas,"DevOps,Kubernetes,Terraform,AWS",Senior,0%,€750,"FR,EN",Staffé à 100% sur le projet AXA jusqu'en décembre 2026.
