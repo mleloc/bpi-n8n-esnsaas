@@ -28,7 +28,6 @@ x-n8n: &service-n8n
 
 x-ollama: &service-ollama
   image: ollama/ollama:latest
-  container_name: ollama
   networks: ['demo']
   restart: unless-stopped
   ports:
@@ -39,7 +38,6 @@ x-ollama: &service-ollama
 x-init-ollama: &init-ollama
   image: ollama/ollama:latest
   networks: ['demo']
-  container_name: ollama-pull-llama
   volumes:
     - ollama_storage:/root/.ollama
   entrypoint: /bin/sh
@@ -118,9 +116,11 @@ services:
 
   ollama:
     <<: *service-ollama
+    container_name: ollama
 
   ollama-pull-llama:
     <<: *init-ollama
+    container_name: ollama-pull-llama
     depends_on:
       - ollama
 
