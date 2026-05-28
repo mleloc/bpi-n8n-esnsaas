@@ -26,6 +26,7 @@ x-n8n: &service-n8n
     - WEBHOOK_URL=https://${CODESPACE_NAME:-localhost}-5678.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}/
     - N8N_HOST=${CODESPACE_NAME:-localhost}-5678.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}
     - N8N_PROTOCOL=https
+    - N8N_DISABLE_PUSH_ORIGIN_CHECK=true
   env_file:
     - path: .env
       required: true
