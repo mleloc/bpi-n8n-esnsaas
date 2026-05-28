@@ -23,6 +23,7 @@ x-n8n: &service-n8n
     - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
     - N8N_EXPRESS_TRUST_PROXY=true
     - N8N_PUSH_BACKEND=sse
+    - N8N_DISABLE_PUSH_ORIGIN_CHECK=true
   env_file:
     - path: .env
       required: true
