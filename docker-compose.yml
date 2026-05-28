@@ -24,7 +24,7 @@ x-n8n: &service-n8n
     - N8N_TRUST_PROXY=true
     - N8N_PROXY_HOPS=1
     - N8N_PUSH_BACKEND=websocket
-    - WEBHOOK_URL=https://${CODESPACE_NAME:-localhost}-5678.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}/
+    - WEBHOOK_URL=http://localhost:5678/
     - N8N_HOST=localhost
     - N8N_PROTOCOL=http
     - N8N_DISABLE_PUSH_ORIGIN_CHECK=true
