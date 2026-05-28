@@ -4,12 +4,12 @@
     "service": "devcontainer",
     "workspaceFolder": "/workspaces/bpi-n8n-esnsaas",
     "forwardPorts": [
-        5678,
-        11434,
-        6333
+        "nginx:5678",
+        "ollama:11434",
+        "qdrant:6333"
     ],
     "portsAttributes": {
-        "5678": {
+        "nginx:5678": {
             "label": "Interface n8n",
             "onAutoForward": "openBrowser",
             "visibility": "public"
