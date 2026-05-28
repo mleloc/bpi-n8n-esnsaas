@@ -63,4 +63,4 @@ Le dossier local `./shared` est monté dans le conteneur n8n sur le chemin `/dat
 1. Ouvrez l'interface n8n (via le port `5678` dans l'onglet **Ports**).
 2. Ouvrez le workflow importé nommé **Demo workflow**.
 3. Cliquez sur le bouton **Chat** tout en bas de la page du workflow.
-4. Saisissez un message (ex: *"Bonjour, qui es-tu ?"*) et validez. Le modèle local `llama3.2` hébergé sur Ollama va générer sa réponse directement dans l'interface !
+4. Saisissez un message (ex: *"Bonjour, qui es-tu ?"*) et validez. Le modèle local `tinyllama` hébergé sur Ollama va générer sa réponse directement dans l'interface !
