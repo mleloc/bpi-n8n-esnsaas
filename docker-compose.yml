@@ -50,6 +50,7 @@ x-init-ollama: &init-ollama
   environment:
     - OLLAMA_HOST=ollama:11434
   command:
+    - "-c"
     - "echo 'Waiting for Ollama to be ready...' && until ollama list >/dev/null 2>&1; do sleep 1; done && echo 'Ollama is ready, pulling llama3.2...' && ollama pull llama3.2"
 
 services:
