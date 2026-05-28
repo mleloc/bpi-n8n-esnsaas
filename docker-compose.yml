@@ -21,13 +21,13 @@ x-n8n: &service-n8n
     - N8N_USER_MANAGEMENT_JWT_SECRET
     - OLLAMA_HOST=${OLLAMA_HOST:-ollama:11434}
     - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
-    - N8N_TRUST_PROXY=false
+    - N8N_TRUST_PROXY=true
+    - N8N_EXPRESS_TRUST_PROXY=true
+    - N8N_PROXY_HOPS=2
     - N8N_PUSH_BACKEND=websocket
-    - WEBHOOK_URL=http://localhost:5678/
-    - N8N_HOST=localhost
-    - N8N_PROTOCOL=http
-    - N8N_DISABLE_PUSH_ORIGIN_CHECK=true
-    - N8N_SKIP_ORIGIN_CHECK=true
+    - WEBHOOK_URL=https://${CODESPACE_NAME:-localhost}-5678.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}/
+    - N8N_HOST=${CODESPACE_NAME:-localhost}-5678.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}
+    - N8N_PROTOCOL=https
   env_file:
     - path: .env
       required: true
@@ -95,8 +95,7 @@ services:
     hostname: n8n
     container_name: n8n
     restart: unless-stopped
-    ports:
-      - 5678:5678
+
     volumes:
       - n8n_storage:/home/node/.n8n
       - ./n8n/demo-data:/demo-data
@@ -107,6 +106,18 @@ services:
         condition: service_healthy
       n8n-import:
         condition: service_completed_successfully
+
+  nginx:
+    image: nginx:alpine
+    container_name: n8n-proxy
+    ports:
+      - 5678:5678
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - demo
+    depends_on:
+      - n8n
 
   qdrant:
     image: qdrant/qdrant
