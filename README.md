@@ -30,11 +30,11 @@ Une fois votre compte GitHub actif et connecté :
 
 ## 🔌 Accéder aux outils
 
-GitHub Codespaces redirige automatiquement les ports des services. Vous pouvez y accéder dans l'onglet **Ports** de la console VS Code (en bas) ou directement via les liens suivants :
+Pour accéder aux interfaces des différents outils, rendez-vous dans l'onglet **Ports** de la console VS Code (en bas) et cliquez sur le lien généré dans la colonne **Local Address** du service correspondant :
 
-* **n8n (Interface Web)** : [http://localhost:5678](http://localhost:5678)
-* **Ollama (API)** : [http://localhost:11434](http://localhost:11434)
-* **Qdrant (API/Dashboard)** : [http://localhost:6333](http://localhost:6333)
+* **n8n (Interface Web)** : port `5678`
+* **Ollama (API)** : port `11434`
+* **Qdrant (API/Dashboard)** : port `6333`
 
 > [!IMPORTANT]
 > Lors du premier démarrage, le conteneur `ollama-pull-llama` télécharge automatiquement le modèle d'IA léger **Llama 3.2** (environ 2 Go). Cela peut prendre 1 à 3 minutes selon la vitesse de connexion du Codespace. Vous pouvez suivre l'avancement en consultant les logs Docker du conteneur `ollama-pull-llama`.
@@ -44,7 +44,7 @@ GitHub Codespaces redirige automatiquement les ports des services. Vous pouvez y
 ## 🎓 Éléments inclus dans le TP
 
 ### 1. Workflow de démonstration
-À l'ouverture de n8n ([http://localhost:5678](http://localhost:5678)), un workflow de démonstration est automatiquement importé et prêt à l'emploi.
+À l'ouverture de n8n (via le port `5678` dans l'onglet **Ports**), un workflow de démonstration est automatiquement importé et prêt à l'emploi.
 Il s'agit d'une chaîne LLM simple :
 `Chat Trigger (Déclencheur de Chat) ➔ Basic LLM Chain ➔ Ollama Chat Model`
 
@@ -60,7 +60,7 @@ Le dossier local `./shared` est monté dans le conteneur n8n sur le chemin `/dat
 
 ## 🛠️ Tester votre premier workflow d'IA
 
-1. Ouvrez l'interface n8n : [http://localhost:5678](http://localhost:5678).
+1. Ouvrez l'interface n8n (via le port `5678` dans l'onglet **Ports**).
 2. Ouvrez le workflow importé nommé **Demo workflow**.
 3. Cliquez sur le bouton **Chat** tout en bas de la page du workflow.
 4. Saisissez un message (ex: *"Bonjour, qui es-tu ?"*) et validez. Le modèle local `llama3.2` hébergé sur Ollama va générer sa réponse directement dans l'interface !
