@@ -157,7 +157,7 @@ services:
      - ollama-gpu-amd
 
   devcontainer:
-    image: mcr.microsoft.com/devcontainers/base:ubuntu
+    image: mcr.microsoft.com/devcontainers/base:ubuntu-22.04
     container_name: devcontainer
     volumes:
       - .:/workspaces/bpi-n8n-esnsaas:cached
