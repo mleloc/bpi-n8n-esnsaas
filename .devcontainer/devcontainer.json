@@ -12,7 +12,7 @@
         "5678": {
             "label": "Interface n8n",
             "onAutoForward": "openBrowser",
-            "visibility": "private"
+            "visibility": "public"
         }
     },
     "features": {
