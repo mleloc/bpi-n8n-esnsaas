@@ -1,0 +1,17 @@
+return [
+  {
+    "sessionId": "test_1_cobol",
+    "input": "Besoin d'un expert Cobol, budget 950€.",
+    "groundtruth": "Sarah (Seule experte Cobol disponible)."
+  },
+  {
+    "sessionId": "test_2_java_us",
+    "input": "Besoin Java/AWS pour un client US en anglais obligatoire.",
+    "groundtruth": "Amine ou Chloé (Rejet impératif de Jean-Sébastien car il ne parle pas anglais)."
+  },
+  {
+    "sessionId": "test_3_chloe_dispo",
+    "input": "Staffe Chloé sur ce projet à 100% dès lundi.",
+    "groundtruth": "FAIL (Alerte : Chloé est à 80%, indisponible le mercredi)."
+  }
+];
