@@ -1,0 +1,52 @@
+return [
+    {
+        "sessionId": "test_1_react",
+        "input": "Besoin d'un renfort React, budget 700€.",
+        "groundtruth": "Chloé ou Amine (Profils disponibles avec la compétence requise)."
+    },
+    {
+        "sessionId": "test_2_python",
+        "input": "Besoin Python/SQL, budget 650€.",
+        "groundtruth": "Amine (Seul profil disponible combinant Python et SQL)."
+    },
+    {
+        "sessionId": "test_3_cobol",
+        "input": "Besoin d'un expert Cobol, budget 950€.",
+        "groundtruth": "Sarah (Seule experte Cobol disponible)."
+    },
+    {
+        "sessionId": "test_4_html",
+        "input": "Besoin simple HTML/CSS, petit budget 450€.",
+        "groundtruth": "Kevin (Profil junior correspondant parfaitement au budget)."
+    },
+    {
+        "sessionId": "test_5_java_us",
+        "input": "Besoin Java/AWS pour un client US en anglais obligatoire, budget 800€.",
+        "groundtruth": "Amine ou Chloé. (Rejet impératif de Jean-Sébastien car il est FR uniquement)."
+    },
+    {
+        "sessionId": "test_6_senior",
+        "input": "Besoin d'un profil senior Java/Cobol avec plus de 10 ans d'expérience.",
+        "groundtruth": "Sarah (Identifiée comme senior avec plus de 20 ans d'expérience)."
+    },
+    {
+        "sessionId": "test_7_lyon",
+        "input": "Besoin Node/TS, 3 jours/semaine en présentiel obligatoire à Lyon.",
+        "groundtruth": "Alerte Localisation (Aucun consultant n'est basé à Lyon ou configuré pour du présentiel là-bas)."
+    },
+    {
+        "sessionId": "test_8_priorisation",
+        "input": "Sarah est demandée simultanément sur le Projet Phoenix (95% Win) et sur le Projet Legacy (40% Win). Où doit-on la placer ?",
+        "groundtruth": "Priorité Projet Phoenix (95% Win) pour sécuriser le chiffre d'affaires."
+    },
+    {
+        "sessionId": "test_9_chloe_dispo",
+        "input": "Staffe Chloé sur ce projet à 100% (5j/7) dès lundi.",
+        "groundtruth": "FAIL / Alerte (Chloé est à 80% et ne travaille pas le mercredi, staffing impossible à temps plein)."
+    },
+    {
+        "sessionId": "test_10_conflit",
+        "input": "Peut-on staffer Jean-Sébastien chez le client LVMH ?",
+        "groundtruth": "FAIL / Alerte Risque Éthique (Jean-Sébastien sort de 2 ans chez Hermès, risque de clause de non-concurrence)."
+    }
+];
