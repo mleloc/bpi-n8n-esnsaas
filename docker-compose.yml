@@ -79,7 +79,7 @@ services:
     command:
     - "-c"
     - |
-      if [ -z "$(n8n list:workflow --onlyId)" ]; then
+      if [ -z "$(n8n list:workflow --onlyId | grep -v ' ')" ]; then
         n8n import:credentials --separate --input=/demo-data/credentials && \
         n8n import:workflow --separate --input=/demo-data/workflows
       else
