@@ -1,0 +1,322 @@
+{
+  "name": "Staffing Consultants_Step 3",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.input }}",
+        "options": {
+          "systemMessage": "Tu es l'Assistant de Staffing Virtuel de l'entreprise.\nTon rôle est d'accueillir les demandes de staffing et d'aider à identifier les profils idéaux.\nSois professionnel, concis et orienté business."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        -80
+      ],
+      "id": "41db363c-6c19-4ae8-98ba-feff3083350c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        96
+      ],
+      "id": "e3af2c58-bd02-4344-839e-3ee2e3bde723",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "PXoAl8hTAhEibDCt",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "app6MJyzhcCgTPMX7",
+          "mode": "list",
+          "cachedResultName": "Bpifrance_ESN_N8N",
+          "cachedResultUrl": "https://airtable.com/app6MJyzhcCgTPMX7"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblkTNen6uW8RlvS6",
+          "mode": "list",
+          "cachedResultName": "CONSULTANTS",
+          "cachedResultUrl": "https://airtable.com/app6MJyzhcCgTPMX7/tblkTNen6uW8RlvS6"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.2,
+      "position": [
+        368,
+        96
+      ],
+      "id": "a148cd0a-9e37-47cd-ad26-7cac81add6b0",
+      "name": "Search records in Airtable",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "uat0KnI7JdT6mvvZ",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    \"input\": \"Besoin d'un expert Cobol, budget 950€.\",\n    \"groundtruth\": \"Sarah\"\n  },\n  {\n    \"input\": \"Besoin Java/AWS pour un client US en anglais obligatoire.\",\n    \"groundtruth\": \"Amine ou Chloé (Rejet impératif de Jean-Sébastien car il ne parle pas anglais).\"\n  },\n  {\n    \"input\": \"Staffe Chloé sur ce projet à 100% dès lundi.\",\n    \"groundtruth\": \"FAIL (Alerte : Chloé est à 80%, indisponible le mercredi)\"\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -80
+      ],
+      "id": "a291f0fd-a8f9-4326-9a87-a0faaafe5a97",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Tu es un Auditeur Qualité. Tu dois comparer la réponse de notre agent de staffing avec le résultat attendu par les experts métier.\n\nDonnées à analyser :\n- Requête du client : {{ $('Code in JavaScript').item.json.input }}\n- Résultat attendu : {{ $('Code in JavaScript').item.json.groundtruth }}\n- Réponse réelle de l'agent : {{ $json.output }}\n\nConsigne : Évalue si la réponse réelle respecte le résultat attendu. Réponds UNIQUEMENT au format JSON suivant :\n{\n  \"input\": {{ $('Code in JavaScript').item.json.input }},\n  \"output\": {{ $json.output }},\n  \"groundtruth\": {{ $('Code in JavaScript').item.json.groundtruth }},\n  \"evaluation\": \"PASS\" ou \"FAIL\",\n  \"raison\": \"Explication concise de l'erreur ou du succès\"\n}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        512,
+        -80
+      ],
+      "id": "6e5134ca-f799-4901-9e91-02cba7a925e3",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "PXoAl8hTAhEibDCt",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all().map(item => {\n  try {\n    // 1. On extrait la chaîne JSON brute cachée dans la structure de Gemini\n    let rawText = item.json.content.parts[0].text;\n    \n    // 2. Sécurité au cas où Gemini remettrait du markdown plus tard\n    rawText = rawText.replace(/```json|```/g, '').trim();\n    \n    // 3. On transforme cette chaîne en un vrai objet JSON exploitable\n    return JSON.parse(rawText);\n    \n  } catch (error) {\n    // Sécurité atelier : si un item buggue, on ne bloque pas tout le workflow\n    return {\n      \"evaluation\": \"ERROR\",\n      \"raison\": \"Erreur de lecture du Juge : \" + error.message\n    };\n  }\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        -80
+      ],
+      "id": "65062366-3baa-4b4c-8a82-8e52fbc2f97a",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "app6MJyzhcCgTPMX7",
+          "mode": "list",
+          "cachedResultName": "Bpifrance_ESN_N8N",
+          "cachedResultUrl": "https://airtable.com/app6MJyzhcCgTPMX7"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl13a0v6QgJdNTfz",
+          "mode": "list",
+          "cachedResultName": "LOGS EVAL",
+          "cachedResultUrl": "https://airtable.com/app6MJyzhcCgTPMX7/tbl13a0v6QgJdNTfz"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "STATUT": "={{ $json.evaluation }}",
+            "RAISON": "={{ $json.raison }}",
+            "INPUT": "={{ $json.input }}",
+            "GROUNDTRUTH": "={{ $json.groundtruth }}",
+            "OUTPUT": "={{ $json.output }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "INPUT",
+              "displayName": "INPUT",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "GROUNDTRUTH",
+              "displayName": "GROUNDTRUTH",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "OUTPUT",
+              "displayName": "OUTPUT",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "STATUT",
+              "displayName": "STATUT",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "RAISON",
+              "displayName": "RAISON",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1024,
+        -80
+      ],
+      "id": "29dcee98-08eb-4ac1-b1ec-fe3c29657cac",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "uat0KnI7JdT6mvvZ",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records in Airtable": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "abc95108-adb3-4a42-90a6-3daef930f705",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "lIgMT7a9sYNII7QD",
+  "tags": []
+}

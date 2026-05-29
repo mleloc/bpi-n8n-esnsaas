@@ -1,0 +1,159 @@
+{
+  "name": "Staffing Consultants_Step 2",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8cb10df1-1650-43d2-9758-6d548e3db56f",
+      "name": "When chat message received",
+      "webhookId": "021d45ff-3c2d-4bd8-a566-5019289bf732"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Tu es l'Assistant de Staffing Virtuel de l'entreprise.\nTon rôle est d'accueillir les demandes de staffing et d'aider à identifier les profils idéaux.\nSois professionnel, concis et orienté business."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "cf5a63f6-5661-4f3c-8db3-49d710c78f95",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        352,
+        208
+      ],
+      "id": "09614518-0fa2-4b1a-afc4-fbcce5f107de",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        208
+      ],
+      "id": "ed675be6-af3e-434a-b9bf-ef5fc7cc8134",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "PXoAl8hTAhEibDCt",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "app6MJyzhcCgTPMX7",
+          "mode": "list",
+          "cachedResultName": "Bpifrance_ESN_N8N",
+          "cachedResultUrl": "https://airtable.com/app6MJyzhcCgTPMX7"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblkTNen6uW8RlvS6",
+          "mode": "list",
+          "cachedResultName": "CONSULTANTS",
+          "cachedResultUrl": "https://airtable.com/app6MJyzhcCgTPMX7/tblkTNen6uW8RlvS6"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtableTool",
+      "typeVersion": 2.2,
+      "position": [
+        464,
+        208
+      ],
+      "id": "d726ef11-2107-4f37-a6ff-b0ef95f98909",
+      "name": "Search records in Airtable",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "uat0KnI7JdT6mvvZ",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records in Airtable": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "8ea88897-cb0c-45bc-aca5-be7917e9d76e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "SmIPPxS5Y0T2BK6H",
+  "tags": []
+}
